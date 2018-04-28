@@ -1,0 +1,12 @@
+body{
+    text-align: center;
+    font-family: 'Gloria Hallelujah', cursive;
+
+};
+h1{
+    color: red;
+};
+img{
+    max-height: 100px;
+    max-width: 100%
+};

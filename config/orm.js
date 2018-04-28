@@ -1,69 +1,77 @@
-var config = require("connection.js")
+var connection = require("./connection.js")
 
 
 
 
 
 var orm = {
-    all : function selectAll(){
-        var selectall = "SELECT * FROM ??"
-        config.query( selectall,  function(req,res){
-            console.log(res)
-        })
+    all : function(tableInput,cb){
+      var queryString = 'SELECT * FROM ' + tableInput+';'
+      connection.query(queryString,function(err,results){
+        if(err) throw err;
+        // console.log(results);     
+        cb(results)
+      });
     },
+    create: function(table,vals, cb){
+      var queryString = "INSERT INTO " + table + " ('burger_name') "+"VALUES (?) ";
 
 
-    create: function insertOne(){
-        config.query("INSERT INTO ? WHERE ??",function(req,res){
-
-        })
+        connection.query(queryString,vals,function(err,response){
+          if (err) throw err;
+          console.log(response);
+          cb(response);
+        });
     },
-    {
-      update: function updateOne(){
-        config.query(" ",function(req,res){
-
-        })
+    
+      update: function(table, condition, cb){
+        var queryString = "UPDATE "+ table + "SET devoured = true WHERE " +condition+";" 
+        connection.query(queryString, function(err,response){
+          if(err) throw err
+          console.log(response);
+          cb(response);
+        });
       }
-    }
+    
 
 }
 module.exports = orm;
 
 // Example to follow Below::::
-var orm = {
-    select: function(whatToSelect, tableInput) {
-      var queryString = "SELECT ?? FROM ??";
-      connection.query(queryString, [whatToSelect, tableInput], function(err, result) {
-        if (err) throw err;
-        console.log(result);
-      });
-    },
-    selectWhere: function(tableInput, colToSearch, valOfCol) {
-      var queryString = "SELECT * FROM ?? WHERE ?? = ?";
+// var orm = {
+    // select: function(whatToSelect, tableInput) {
+    //   var queryString = "SELECT ?? FROM ??";
+    //   connection.query(queryString, [whatToSelect, tableInput], function(err, result) {
+    //     if (err) throw err;
+    //     console.log(result);
+    //   });
+    // },
+  //   selectWhere: function(tableInput, colToSearch, valOfCol) {
+  //     var queryString = "SELECT * FROM ?? WHERE ?? = ?";
   
-      console.log(queryString);
+  //     console.log(queryString);
   
-      connection.query(queryString, [tableInput, colToSearch, valOfCol], function(err, result) {
-        if (err) throw err;
-        console.log(result);
-      });
-    },
-    leftJoin: function(whatToSelect, tableOne, tableTwo, onTableOneCol, onTableTwoCol) {
-      var queryString = "SELECT ?? FROM ?? AS tOne";
-      queryString += " LEFT JOIN ?? AS tTwo";
-      queryString += " ON tOne.?? = tTwo.??";
+  //     connection.query(queryString, [tableInput, colToSearch, valOfCol], function(err, result) {
+  //       if (err) throw err;
+  //       console.log(result);
+  //     });
+  //   },
+  //   leftJoin: function(whatToSelect, tableOne, tableTwo, onTableOneCol, onTableTwoCol) {
+  //     var queryString = "SELECT ?? FROM ?? AS tOne";
+  //     queryString += " LEFT JOIN ?? AS tTwo";
+  //     queryString += " ON tOne.?? = tTwo.??";
   
-      console.log(queryString);
+  //     console.log(queryString);
   
-      connection.query(queryString, [whatToSelect, tableOne, tableTwo, onTableOneCol, onTableTwoCol], function(
-        err,
-        result
-      ) {
-        if (err) throw err;
-        console.log(result);
-      });
-    }
-  };
+  //     connection.query(queryString, [whatToSelect, tableOne, tableTwo, onTableOneCol, onTableTwoCol], function(
+  //       err,
+  //       result
+  //     ) {
+  //       if (err) throw err;
+  //       console.log(result);
+  //     });
+  //   }
+  // };
   
-  module.exports = orm;
+  // module.exports = orm;
   

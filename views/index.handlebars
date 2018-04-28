@@ -1,17 +1,68 @@
-{{#each}}
+
+  <header>
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+                {{!-- <img src="../public/assets/img/server.jpg"> --}}
+                <h1 class="display-4">Eat Da Burger!</h1>
+                <p class="lead">Type in the burger you'd like to eat, and submit.</p>
+            </div>
+        </div>
+        
+
+
+    </header>
+
+    <br>
+
+
+
+<div class="col-lg-6">
+
+{{#each burgers}}
+    {{#unless devoured}}
+    
 <div class="card">
-    <div class="card-body">
-        This is some text within a card body.
+    <div class="card-body"> 
+        {{burger_name}}
     </div>
+
+    <a href="/api/burgers">
     <button id="devour" class="btn btn-secondary">Devour It!</button>
+    </a>
 </div>
+    {{/unless}}
 {{/each}}
 
+
+</div>
+
+<div class="col-lg-6">
+  {{#each burgers}}
+    {{#if devoured}}
+    
+<div class="card">
+    <div class="card-body"> 
+        {{burger_name}}
+    </div>
+    {{!-- <a href="/api/burgers">
+    <button id="devour" class="btn btn-secondary">Devour It!</button>
+    </a> --}}
+</div>
+    {{/if}}
+{{/each}}
+
+
+
+
+</div>
+
+
+<br>
         <form>
             <div class="form-group">
                 {{!--
                 <label for="formGroupExampleInput">Example label</label> --}}
-                <input type="text" class="form-control" id="burger" placeholder="Double Cheeseburger">
+                <input type="text" class="form-control" id="burger" placeholder="ex: Double Cheeseburger">
             </div>
         </form>
         <button id="submit" type="submit" class="btn btn-dark">Submit</button>
