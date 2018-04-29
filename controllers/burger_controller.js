@@ -10,36 +10,29 @@ router.get("/", function(req,res){
         var hbarsObject = {
         burgers: data
         }
-        // var burgerArr = []
-        // console.log("data: " + hbarsObject.burgers);
-        // var burgers = hbarsObject.burgers
-        // for (var i =0; i < burgers.length; i ++){
-        //     // console.log(burgers[i].burger_name)
-        //     burgerArr.push(burgers[i].burger_name)
-        // }
-        // console.log("return Array: " +burgerArr)
         res.render("index", hbarsObject);
     });
 })
-
-router.post("/api/burgers", function(req,res){
+ 
+router.post("/api/create", function(req,res){
     burger.create([
-        "burger_name"
+        "burger_name","devoured"
     ],
 [
-    req.body.burger_name
+    req.body.burger_name,req.body.devoured
 ], function(result){
-    res.json({id: result.insertID});
+    // res.json({id: result.insertID});
+    res.redirect("/")
 });
 });
 
 router.put("/api/burgers/:id",function(req,res){
-    var condition = "id = "+req.params.id;
+    var condition = "id = " + req.params.id;
 
     console.log("condition", condition);
 
     burger.update({
-        devoured : true
+        devoured : req.body.devoured
     },condition, function(result) {
         if (result.changedRows == 0){
             return res.status(404).end();
