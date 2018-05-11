@@ -19,51 +19,45 @@
 <div class="col-lg-6">
 
 {{#each burgers}}
-    {{#unless devoured}}
-    
-<div class="card">
-    <div class="card-body"> 
-        {{burger_name}}
-    </div>
+    {{#unless this.devoured}}
+        <div>
+            <pre> {{this.id}}, {{this.burger_name}}</pre>
+        
+            <div>
+                <form method="POST" action="/burgers/update?_method=PUT" class="button-size">
+                    <input type="hidden" name="burger_id" type="text" value={{this.id}}>
+                    <br>
+                    <button type="submit" class="btn btn-dark">DEVOUR IT</button>
+                </form>
+            </div>
+        </div>
 
-    <a href="/api/burgers">
-    <button id="devour" class="btn btn-secondary">Devour It!</button>
-    </a>
-</div>
+
     {{/unless}}
 {{/each}}
 
 
 </div>
 
-<div class="col-lg-6">
-  {{#each burgers}}
-    {{#if devoured}}
-    
-<div class="card">
-    <div class="card-body"> 
-        {{burger_name}}
-    </div>
-    {{!-- <a href="/api/burgers">
-    <button id="devour" class="btn btn-secondary">Devour It!</button>
-    </a> --}}
-</div>
-    {{/if}}
-{{/each}}
-
-
-
+<div class="col-lg-6 task">
+    {{#each burgers}}
+        {{#if this.devoured}}
+            <input class="form-control" type="text" placeholder="{{this.id}},{{this.burger_name}}" readonly>
+        {{/if}}
+    {{/each}}
 
 </div>
 
 
 <br>
-        <form>
-            <div class="form-group">
-                {{!--
-                <label for="formGroupExampleInput">Example label</label> --}}
-                <input type="text" class="form-control" id="burger" placeholder="ex: Double Cheeseburger">
-            </div>
-        </form><a href="/api/create">
-        <button id="submit" type="submit" class="btn btn-dark">Submit</button>
-        </a>
+<div class="container">
+    <div class="row">
+        <div class="text-center enter_section">
+            <form action="/burgers/create" method="POST">
+                <input type="text" name="burger_name" class="form-control" value="" id="enter_text">
+                <button type="submit" class="btn btn-danger" id="text-enter-button">SUBMIT</button>
+            </form>
+        </div>
+    </div>
+
+</div>

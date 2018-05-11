@@ -6,15 +6,15 @@ var burgercall = {
             cb(res);
         });
     },
-    create : function(cols, vals, cb){
-        orm.create("burgers", cols, vals, function(res){
+    create : function(name, cb){
+        orm.create("burgers", name, function(res){
             cb(res);
         } );
     },
     update : function (condition, cb){
-        orm.update("burgers",condition, function(res){
-            cb(res);
-        });
+        orm.update("burgers",condition, cb
+            // cb(res);
+        );
     }
 }
 
